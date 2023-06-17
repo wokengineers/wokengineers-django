@@ -1,9 +1,9 @@
 
 from django.db.models.query import QuerySet
-from kuantam.helpers.custom_helpers import CustomExceptionHandler
-from kuantam.consts import STATUS_ACTIVE, CREATION_BY
+from wokengineers.helpers.custom_helpers import CustomExceptionHandler
+from wokengineers.consts import STATUS_ACTIVE, CREATION_BY
 from django.db import models
-from kuantam.status_code import invalid_log_model, error_while_log_table_saving
+from wokengineers.status_code import invalid_log_model, error_while_log_table_saving
 import logging
 import datetime
 logger = logging.getLogger("django")

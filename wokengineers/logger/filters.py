@@ -1,6 +1,6 @@
 import logging
-from kuantam.middleware.auth import get_request
-from kuantam.logger.consts import FILTER_DEFAULT_DICT
+from wokengineers.middleware.auth import get_request
+from wokengineers.logger.consts import FILTER_DEFAULT_DICT
 
 
 class CustomLoggerFilter(logging.Filter):

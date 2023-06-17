@@ -1,5 +1,5 @@
-from kuantam import Service
-from kuantam.consts import STATUS_CODE, MESSAGE, SUCCESS_CODE
+from wokengineers import Service
+from wokengineers.consts import STATUS_CODE, MESSAGE, SUCCESS_CODE
 
 success = {STATUS_CODE: SUCCESS_CODE, MESSAGE: "Success"}
 generic_error_1 = {STATUS_CODE: int(f"{Service.code}10000"), MESSAGE: "Invalid request details"}

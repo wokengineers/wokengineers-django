@@ -1,4 +1,4 @@
-from kuantam.logger.consts import FMT
+from wokengineers.logger.consts import FMT
 logger_config = {
     'version': 1,
 

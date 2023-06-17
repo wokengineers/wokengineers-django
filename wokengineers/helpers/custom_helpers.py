@@ -1,20 +1,18 @@
 import logging
-from kuantam.status_code import field_should_be_int_type
+from wokengineers.status_code import field_should_be_int_type
 from datetime import datetime
-from kuantam.consts import DATE_YYYY_MM_DD
+from wokengineers.consts import DATE_YYYY_MM_DD
 import re 
 
 logger = logging.getLogger("django")
 
-from rest_framework.exceptions import APIException
 
-
-class CustomExceptionHandler(APIException):
-    def __init__(self, detail=None, code=None, status_code=400):
-        super().__init__(detail=detail, code=code)
+class CustomExceptionHandler(Exception):
+    def __init__(self, detail='', status_code=400):
+        # Call the base class constructor with the parameters it needs
+        super(CustomExceptionHandler, self).__init__(detail)
         self.status_code = status_code
-
-
+        self.detail = detail
     
 def log_info_message(request, message = "Info"):
     return (f"{message} --> {request.body}")

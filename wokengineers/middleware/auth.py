@@ -1,5 +1,5 @@
 
-from kuantam.consts import *
+from wokengineers.consts import *
 import jwt
 
 
@@ -24,7 +24,7 @@ class CustomMiddleware:
             decoded = jwt.decode(token, options={"verify_signature": False})
             user_id = decoded.get("user_id")
             user_name = decoded.get("name")
-            role = decoded["roles"][0]
+            role = decoded.get("roles",[None])[0]
             request.user_id = user_id
             request.user_name = user_name
             request.role = role

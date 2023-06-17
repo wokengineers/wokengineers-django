@@ -1,7 +1,8 @@
 import logging
-from kuantam.consts import STATUS_ACTIVE, CREATION_BY
-from kuantam.middleware.auth import get_request
+from wokengineers.consts import STATUS_ACTIVE, CREATION_BY
+from wokengineers.middleware.auth import get_request
 import datetime
+from wokengineers.serializers import CustomCharField, CustomIntegerField, serializers
 
 logger = logging.getLogger("django")
 
@@ -36,3 +37,8 @@ def help_text_for_dict(dict_value):
         _type_: String Format help text
     """
     return f'Enter value from this list - {list(dict_value.keys())}'
+
+
+class SuccessResponseSerializer(serializers.Serializer):
+    status = CustomIntegerField(required=True)
+    message = CustomCharField(required=True)

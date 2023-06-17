@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from rest_framework.fields import empty
 import logging
-from kuantam.status_code import field_cannot_be_blank, field_list_cannot_be_empty, field_required_error, field_should_be_boolean_type, \
+from wokengineers.status_code import field_cannot_be_blank, field_list_cannot_be_empty, field_required_error, field_should_be_boolean_type, \
     field_should_be_int_type, field_should_be_list_type, field_should_be_string_type, table_not_exist
-from kuantam.consts import STATUS_ACTIVE
-from kuantam.helpers.custom_helpers import CustomExceptionHandler, int_float_check
+from wokengineers.consts import STATUS_ACTIVE
+from wokengineers.helpers.custom_helpers import CustomExceptionHandler, int_float_check
 
 logger = logging.getLogger("django")
 
