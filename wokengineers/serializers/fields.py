@@ -174,19 +174,19 @@ class CustomBooleanField(serializers.BooleanField):
 
 
 class CustomForeignField(serializers.PrimaryKeyRelatedField):
-     def _init_(self, **kwargs):
-         self.restrict_roles = kwargs.pop('restrict_roles', [])
-         self.model = kwargs.pop('model', [])
-         self.field = kwargs.pop('field', [])
-         self.lable = kwargs.pop('lable', [])
-         self.error= kwargs.pop('error', [])
-         self.allow_null = kwargs.pop('allow_null', True)
-         super()._init_(**kwargs)
-         self.required = kwargs.pop('required', [])
-         serializers.PrimaryKeyRelatedField._init_(self,required=self.required)
+     def __init__(self, **kwargs):
+        self.restrict_roles = kwargs.pop('restrict_roles', [])
+        self.model = kwargs.pop('model', [])
+        self.lable = kwargs.pop('lable', [])
+        self.error= kwargs.pop('error', [])
+        self.allow_null = kwargs.pop('allow_null', True)
+        super().__init__(**kwargs)
+        self.required = kwargs.pop('required', [])
+        self.value_data = None
  
  
      def run_validation(self, data=empty):
+         self.value_data = data
          # Test for the empty string here so that it does not get validated,
          # and so that subclasses do not need to handle it explicitly
          # inside the `to_internal_value()` method.
@@ -212,10 +212,9 @@ class CustomForeignField(serializers.PrimaryKeyRelatedField):
          return super().run_validation(data)
  
      def get_queryset(self):
-         field = self.root._dict_['_kwargs']["data"].get(self.field)
-         obj = self.model.objects.filter(id=field,status = STATUS_ACTIVE)
-         if not obj.exists():raise CustomExceptionHandler(self.error)
-         return obj
+        obj = self.model.objects.filter(id=self.value_data, status = STATUS_ACTIVE)
+        if not obj.exists():raise CustomExceptionHandler(self.error)
+        return obj
  
-     def to_representation(self, value):
-         return str(value)
+    #  def to_representation(self, value):
+    #      return value.id
