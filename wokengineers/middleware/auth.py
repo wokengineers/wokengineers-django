@@ -20,16 +20,17 @@ class CustomMiddleware:
         #  After request the code will go here
         authorization = request.headers.get("Authorization")
         token = authorization.split(" ")[1] if authorization else authorization
+        request.token = token
         if token:
             decoded = jwt.decode(token, options={"verify_signature": False})
-            user_id = decoded.get("user_id")
+            auth_id = decoded.get("auth_id")
             user_name = decoded.get("name")
             role = decoded.get("roles",[None])[0]
-            request.user_id = user_id
+            request.auth_id = auth_id
             request.user_name = user_name
             request.role = role
         else:
-            request.user_id = CREATION_BY
+            request.auth_id = CREATION_BY
             request.user_name = CREATION_BY
             request.role = DEFAULT_ROLE
 

@@ -1,4 +1,4 @@
-FILTER_DEFAULT_DICT = {"user_id": "user_id",
+FILTER_DEFAULT_DICT = {"auth_id": "auth_id",
                        "ip": "META,REMOTE_ADDR",
                     "user_name": "user_name", "role": "role"}
 
@@ -16,6 +16,6 @@ RESET = '\x1b[0m'
 
 ####### FORMATTER DEFAULT FORMAT #######
 #levelname, ip, user, user_id, user_role, timestamp, filename , funcName, lineno, message
-FMT = "%(log_color)s%(levelname)s^%(ip)s^%(log_color)s%(user_id)s^%(user_name)s^%(role)s^%(white)s%(asctime)s.%(msecs)03d^%(red)s%(filename)s^%(red)s%(funcName)s^%(red)s%(lineno)s^%(blue)s%(message)s"
+FMT = "%(log_color)s%(levelname)s^%(ip)s^%(log_color)s%(auth_id)s^%(user_name)s^%(role)s^%(white)s%(asctime)s.%(msecs)03d^%(red)s%(filename)s^%(red)s%(funcName)s^%(red)s%(lineno)s^%(blue)s%(message)s"
 
 ####### FORMATTER DEFAULT FORMAT #######
