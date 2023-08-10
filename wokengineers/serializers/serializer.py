@@ -14,7 +14,7 @@ class CustomModelSerializer(serializers.ModelSerializer):
                 self.fields.pop(field_name)
 
 
-    def save_update_parent(self, instance, validated_data):
+    def save_update_parent(self, validated_data,instance=None):
         child_data={}
         for field, property in self.get_fields().items():
 
@@ -56,6 +56,6 @@ class CustomModelSerializer(serializers.ModelSerializer):
     
     @atomic
     def update(self, parent_instance, validated_data):
-        parent_instance, child_data = self.save_update_parent(parent_instance,validated_data)
+        parent_instance, child_data = self.save_update_parent(instance = parent_instance, validated_data=validated_data)
         self.save_update_children(parent_instance, child_data, save=False, update=True)
         return parent_instance
