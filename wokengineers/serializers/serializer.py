@@ -45,7 +45,6 @@ class CustomModelSerializer(serializers.ModelSerializer):
 
 
     def partial_update_payload(self, instance, validated_data):
-        
         pass
 
 

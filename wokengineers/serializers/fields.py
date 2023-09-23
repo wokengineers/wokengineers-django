@@ -174,7 +174,7 @@ class CustomBooleanField(serializers.BooleanField):
 
 
 class CustomForeignField(serializers.PrimaryKeyRelatedField):
-     def __init__(self, **kwargs):
+    def __init__(self, **kwargs):
         self.restrict_roles = kwargs.pop('restrict_roles', [])
         self.model = kwargs.pop('model', [])
         self.lable = kwargs.pop('lable', [])
@@ -184,37 +184,41 @@ class CustomForeignField(serializers.PrimaryKeyRelatedField):
         self.required = kwargs.pop('required', [])
         self.value_data = None
  
+    def to_internal_value(self, data):
+        self.value_data = data
+        return super().to_internal_value(data)
+    
+
+    def run_validation(self, data=empty):
+        self.value_data = data
+        # Test for the empty string here so that it does not get validated,
+        # and so that subclasses do not need to handle it explicitly
+        # inside the `to_internal_value()` method.
+
+        if not self.required and data in [empty, "", None]:
+            return None
+
+        if not getattr(self.root, "partial", False):
+            if self.required and data in [empty, "", None]:
+                # Handle field if required is True but field is not pass
+                # Self.required is pass because field can be required in model file
+                # logger.exception("Exception : %s",
+                #                  field_required_error(self.label))
+                raise CustomExceptionHandler(field_required_error(self.label))
+
+        if not getattr(self.root, "partial", False):
+            if (not isinstance(data, int)) and (not data.strip().isdigit()):
+                # logger.exception("Exception : %s",
+                #                  field_should_be_int_type(self.label))
+                raise CustomExceptionHandler(
+                    field_should_be_int_type(self.label))
+
+        return super().run_validation(data)
  
-     def run_validation(self, data=empty):
-         self.value_data = data
-         # Test for the empty string here so that it does not get validated,
-         # and so that subclasses do not need to handle it explicitly
-         # inside the `to_internal_value()` method.
- 
-         if not self.required and data in [empty, "", None]:
-             return None
- 
-         if not getattr(self.root, "partial", False):
-             if self.required and data in [empty, "", None]:
-                 # Handle field if required is True but field is not pass
-                 # Self.required is pass because field can be required in model file
-                 # logger.exception("Exception : %s",
-                 #                  field_required_error(self.label))
-                 raise CustomExceptionHandler(field_required_error(self.label))
- 
-         if not getattr(self.root, "partial", False):
-             if (not isinstance(data, int)) and (not data.strip().isdigit()):
-                 # logger.exception("Exception : %s",
-                 #                  field_should_be_int_type(self.label))
-                 raise CustomExceptionHandler(
-                     field_should_be_int_type(self.label))
- 
-         return super().run_validation(data)
- 
-     def get_queryset(self):
+    def get_queryset(self):
         obj = self.model.objects.filter(id=self.value_data, status = STATUS_ACTIVE)
         if not obj.exists():raise CustomExceptionHandler(self.error)
         return obj
  
-    #  def to_representation(self, value):
-    #      return value.id
+    def to_representation(self, value):
+        return value.pk

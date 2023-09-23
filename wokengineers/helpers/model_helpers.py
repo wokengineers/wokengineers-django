@@ -67,3 +67,14 @@ class CustomUpdateManager(QuerySet):
         else:
             raise CustomExceptionHandler(invalid_log_model(self.model.__name__))
         
+
+def get_model_data(model, error_1, error_2=None, **kwargs):
+    try:
+        intance = model.objects.get(**kwargs)
+    except model.DoesNotExist:
+        raise CustomExceptionHandler(error_1)
+    
+    except model.MultipleObjectsReturned:
+        raise CustomExceptionHandler(error_1)
+
+    return intance

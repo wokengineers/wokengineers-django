@@ -28,3 +28,6 @@ ADMIN = "admin"
 ####### MIDDLEWARE CONSTS #######
 DEFAULT_ROLE = CUSTOMER
 CREATION_BY = "system"
+
+
+DATE_YYYY_MM_DD_HR_MIN_SEC = "%Y-%m-%d %H:%M:%S"

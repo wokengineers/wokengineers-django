@@ -7,6 +7,8 @@ generic_error_2 = {STATUS_CODE: int(f"{Service.code}10001"), MESSAGE: "Please tr
 not_valid_access_token = {STATUS_CODE: int(f"{Service.code}10002"), MESSAGE: "You are not allowed to update the data"}
 
 
+def invalide_value_not_allowed(field_name):
+    return {'status_code': int(f'09912'), 'message': f"Invalid value allowed in {field_name}"}
 
 # make error code in asc order
 def field_required_error(field_name):
