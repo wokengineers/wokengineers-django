@@ -4,6 +4,7 @@ from rest_framework.settings import api_settings
 from wokengineers.helpers.custom_helpers import get_response, CustomExceptionHandler
 from wokengineers.status_code import success, object_not_found
 from wokengineers.consts import STATUS_INACTIVE
+from django.http import Http404
 
 class CustomCreateModelMixin:
     """
