@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from wokengineers.helpers.custom_helpers import get_response, CustomExceptionHandler
-from wokengineers.status_code import success
+from wokengineers.status_code import success, object_not_found
 from wokengineers.consts import STATUS_INACTIVE
 
 class CustomCreateModelMixin:
@@ -92,7 +92,7 @@ class CustomDestroyModelMixin:
         try:
             obj = self.get_object()
         except Http404:
-            raise CustomExceptionHandler()
+            raise CustomExceptionHandler(object_not_found)
             
         self.perform_destroy(instance)
         response = get_response(success)
