@@ -6,6 +6,13 @@ from wokengineers.status_code import success, object_not_found
 from wokengineers.consts import STATUS_INACTIVE
 from django.http import Http404
 
+def get_object(self):
+    try:
+        instance = self.get_object()
+        return instance
+    except Http404:
+        raise CustomExceptionHandler(object_not_found)
+
 class CustomCreateModelMixin:
     """
     Create a model instance.
@@ -51,7 +58,7 @@ class CustomRetrieveModelMixin:
     Retrieve a model instance.
     """
     def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
+        instance = get_object(self)
         serializer = self.get_serializer(instance)
         response = get_response(success, serializer.data)
         return Response(response)
@@ -63,7 +70,7 @@ class CustomUpdateModelMixin:
     """
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
-        instance = self.get_object()
+        instance = get_object(self)
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         if not serializer.is_valid():
             raise CustomExceptionHandler(serializer.errors)
@@ -89,10 +96,7 @@ class CustomDestroyModelMixin:
     Destroy a model instance.
     """
     def destroy(self, request, *args, **kwargs):
-        try:
-            instance = self.get_object()
-        except Http404:
-            raise CustomExceptionHandler(object_not_found)
+        instance = get_object(self)
         self.perform_destroy(instance)
         response = get_response(success)
         return Response(response)
