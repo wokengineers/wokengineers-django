@@ -89,12 +89,10 @@ class CustomDestroyModelMixin:
     Destroy a model instance.
     """
     def destroy(self, request, *args, **kwargs):
-        
         try:
-            obj = self.get_object()
+            instance = self.get_object()
         except Http404:
             raise CustomExceptionHandler(object_not_found)
-            
         self.perform_destroy(instance)
         response = get_response(success)
         return Response(response)
