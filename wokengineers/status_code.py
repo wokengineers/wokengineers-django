@@ -5,6 +5,7 @@ success = {STATUS_CODE: SUCCESS_CODE, MESSAGE: "Success"}
 generic_error_1 = {STATUS_CODE: int(f"{Service.code}10000"), MESSAGE: "Invalid request details"}
 generic_error_2 = {STATUS_CODE: int(f"{Service.code}10001"), MESSAGE: "Please try again after sometime"}
 not_valid_access_token = {STATUS_CODE: int(f"{Service.code}10002"), MESSAGE: "You are not allowed to update the data"}
+object_not_found = {STATUS_CODE: int(f"{Service.code}10003"), MESSAGE: "Data not found"}
 
 
 def invalide_value_not_allowed(field_name):
