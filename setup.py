@@ -10,6 +10,6 @@ setup(
     author='wokengineers',
     install_requires=[ 
         "PyJWT==2.6.0"
-    ]
+    ],
     keywords=['pip','wokengineers','library',"django","loggers","middleware"]
     )
