@@ -37,10 +37,10 @@ class CustomUpdateLogAdd(QuerySet):
 
     @staticmethod
     def set_logModel(logModel, model):
-        CustomUpdateManager.logModel_config[model] = logModel
+        CustomUpdateLogAdd.logModel_config[model] = logModel
 
     def update(self, *args, **kwargs):
-        logModel_name = CustomUpdateManager.logModel_config.get(self.model.__name__)
+        logModel_name = CustomUpdateLogAdd.logModel_config.get(self.model.__name__)
         logModel = None
         from django.apps import apps
         for app in apps.get_app_configs():
