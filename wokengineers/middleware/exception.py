@@ -27,10 +27,10 @@ class CustomExceptionMiddleware:
         if isinstance(exception, CustomExceptionHandler):
             logger.exception(f"CustomException {message}")
             response_obj = get_response(eval(str(exception)))
-            status_code = 400
+            status_code = 200
         else:
             logger.exception(f"Exception {message}")
             response_obj = get_response(generic_error_2)
-            status_code = 500
+            status_code = 200
 
         return JsonResponse(response_obj, status=status_code)

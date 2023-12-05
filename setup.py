@@ -5,7 +5,7 @@ setup(
     packages=find_packages(),
     description='This is a Django helper library by wokengineers',
     license='MIT',
-    version='0.0.4',
+    version='0.0.5',
     url='https://github.com/wokengineers/wokengineers-django.git',
     author='wokengineers',
     install_requires=[ 
