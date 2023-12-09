@@ -27,7 +27,7 @@ class CustomIntegerField(serializers.IntegerField):
         # and so that subclasses do not need to handle it explicitly
         # inside the `to_internal_value()` method.
 
-        if not self.required and data in [empty, "", None]:
+        if not self.required and data in [empty, "", None] and not getattr(self.root, "partial", False):
             return None
 
         if not getattr(self.root, "partial", False):
@@ -63,7 +63,7 @@ class CustomCharField(serializers.CharField,):
         # and so that subclasses do not need to handle it explicitly
         # inside the `to_internal_value()` method.
 
-        if not self.required and data in [empty, "", None]:
+        if not self.required and data in [empty, "", None] and not getattr(self.root, "partial", False):
             return None
 
         if not getattr(self.root, "partial", False):
@@ -102,7 +102,7 @@ class CustomListField(serializers.ListField):
         # and so that subclasses do not need to handle it explicitly
         # inside the `to_internal_value()` method.
 
-        if not self.required and data in [empty, "", None]:
+        if not self.required and data in [empty, "", None] and not getattr(self.root, "partial", False):
             return None
 
         if not getattr(self.root, "partial", False):
@@ -149,7 +149,7 @@ class CustomBooleanField(serializers.BooleanField):
         # inside the `to_internal_value()` method.
         # if not self.required and self.default == empty:
         #     return None
-        if not self.required and data in [empty, "", None]  :
+        if not self.required and data in [empty, "", None] and not getattr(self.root, "partial", False):
             return self.default_value 
 
         if not getattr(self.root, "partial", False):
@@ -195,7 +195,7 @@ class CustomForeignField(serializers.PrimaryKeyRelatedField):
         # and so that subclasses do not need to handle it explicitly
         # inside the `to_internal_value()` method.
 
-        if not self.required and data in [empty, "", None]:
+        if not self.required and data in [empty, "", None] and not getattr(self.root, "partial", False):
             return None
 
         if not getattr(self.root, "partial", False):
