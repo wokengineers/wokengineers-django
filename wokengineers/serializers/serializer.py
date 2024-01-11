@@ -36,7 +36,7 @@ class CustomModelSerializer(serializers.ModelSerializer):
                         self.fields[field].create(data)
                     if update and not save:
                         for child_data in data:
-                            instance = child_data.pop("id")
+                            instance = child_data.pop("id", None)
                             if instance:
                                 self.fields[field].child.update(instance,child_data)
                             else:
