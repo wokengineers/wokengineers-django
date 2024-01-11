@@ -126,7 +126,7 @@ class CustomListField(serializers.ListField):
                 raise CustomExceptionHandler(
                     field_list_cannot_be_empty(self.label))
 
-        if len(data) != 0 and isinstance(data, list):
+        if isinstance(data, list) and len(data) != 0:
             data = data
 
         # elif data is not empty:
