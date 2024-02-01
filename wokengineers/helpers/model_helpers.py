@@ -52,7 +52,7 @@ class CustomUpdateLogAdd(QuerySet):
         if logModel:
             instances = [instance.id for instance in self]
             super().update(*args, **kwargs) 
-            for instance in self.model.filter(id__in = instances):
+            for instance in self.model.objects.filter(id__in = instances):
                 add_log_model(logModel, instance, logModel.__name__)
         else:
             raise CustomExceptionHandler(invalid_log_model(self.model.__name__))
